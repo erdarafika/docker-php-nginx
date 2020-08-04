@@ -52,12 +52,8 @@ RUN apk update && apk upgrade &&\
     php-session \
     alpine-sdk \
     php-pear \
+    php7-dev \
     && rm -rf /var/cache/apk/* 
-
-# RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/main' >> /etc/apk/repositories
-# RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/community' >> /etc/apk/repositories
-# RUN apk update
-# RUN apk add mongodb
 
 RUN pecl install mongodb \
     && pecl clear-cache
