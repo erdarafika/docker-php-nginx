@@ -1,6 +1,4 @@
 FROM alpine:3.11
-LABEL Maintainer="Tim de Pater <code@trafex.nl>" \
-      Description="Lightweight container with Nginx 1.16 & PHP-FPM 7.3 based on Alpine Linux."
 
 # Install packages
 RUN apk --no-cache add php7 php7-fpm php7-mysqli php7-json php7-openssl php7-curl \
@@ -81,15 +79,15 @@ RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
 COPY --chown=nobody src/ /var/www/html/
 
-RUN rm composer.lock
-RUN composer install
+# RUN rm composer.lock
+# RUN composer install
 
-# Remove Cache
-RUN rm -rf /var/cache/apk/*
-RUN mv env.prod .env
-RUN php artisan passport:install
-RUN php artisan passport:keys
-RUN php artisan storage:link
+# # Remove Cache
+# RUN rm -rf /var/cache/apk/*
+# RUN mv env.prod .env
+# RUN php artisan passport:install
+# RUN php artisan passport:keys
+# RUN php artisan storage:link
 
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
 RUN chown -R nobody.nobody /var/www/html && \
