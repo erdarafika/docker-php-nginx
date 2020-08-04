@@ -4,7 +4,7 @@ FROM alpine:3.11
 RUN apk --no-cache add php7 php7-fpm php7-mysqli php7-json php7-openssl php7-curl \
     php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype php7-session \
     php7-mbstring php7-gd nginx supervisor curl php7-dev php7-tokenizer php7-iconv php7-simplexml php7-xmlwriter php7-fileinfo \
-    php7-pdo php7-pdo_mysql php7-pcntl
+    php7-pdo php7-pdo_mysql php7-pcntl php7-posix
     
 ENV REDIS_VERSION 4.0.2
 RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$REDIS_VERSION.tar.gz \
@@ -108,10 +108,10 @@ RUN chown -R nobody.nobody /var/www/html && \
 USER nobody
 
 # Expose the port nginx is reachable on
-EXPOSE 8080
+EXPOSE 80
 
 # Let supervisord start nginx & php-fpm
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 # Configure a healthcheck to validate that everything is up&running
-HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:80/fpm-ping
