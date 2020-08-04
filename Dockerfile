@@ -86,7 +86,7 @@ RUN mkdir -p /var/www/html
 
 # Add application
 WORKDIR /var/www/html
-COPY --chown=nobody src/ /var/www/html/
+# COPY --chown=nobody src/ /var/www/html/
 
 # RUN rm composer.lock
 # RUN composer install
