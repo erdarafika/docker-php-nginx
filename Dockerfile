@@ -69,6 +69,8 @@ RUN echo "extension=mongodb.so" > /etc/php7/conf.d/mongodb.ini
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN docker-php-ext-install pcntl
+
 # Configure nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
 # Remove default server definition
