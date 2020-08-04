@@ -5,6 +5,15 @@ RUN apk --no-cache add php7 php7-fpm php7-mysqli php7-json php7-openssl php7-cur
     php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype php7-session \
     php7-mbstring php7-gd nginx supervisor curl php7-dev php7-tokenizer php7-iconv php7-simplexml php7-xmlwriter php7-fileinfo \
     php7-pdo php7-pdo_mysql
+    
+ENV REDIS_VERSION 4.0.2
+RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$REDIS_VERSION.tar.gz \
+    && tar xfz /tmp/redis.tar.gz \
+    && rm -r /tmp/redis.tar.gz \
+    && mkdir -p /usr/src/php/ext \
+    && mv phpredis-* /usr/src/php/ext/redis
+
+# RUN docker-php-ext-install redis
 
 # Install Additional dependencies
 RUN apk update && apk upgrade &&\
